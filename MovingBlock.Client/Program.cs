@@ -1,10 +1,24 @@
+using Microsoft.Extensions.Hosting;
 using MovingBlock.Client.Hubs;
+using MovingBlock.Client.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        policy =>
+        {
+            policy.WithOrigins("https://localhost:44472")
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials();
+        });
+});
 builder.Services.AddSignalR();
+builder.Services.AddHostedService<TimerService>();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -19,7 +33,9 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
-app.MapHub<ChatHub>("/hub");
+
+app.UseCors();
+app.MapHub<TrainHub>("/trainhub");
 
 
 app.MapControllerRoute(

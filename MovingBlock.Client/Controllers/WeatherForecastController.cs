@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using MovingBlock.Client.Hubs;
 
 namespace MovingBlock.Client.Controllers
 {
@@ -9,13 +11,15 @@ namespace MovingBlock.Client.Controllers
         private static readonly string[] Summaries = new[]
         {
         "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
+        };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly IHubContext<TrainHub> _hub;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IHubContext<TrainHub> hub)
         {
             _logger = logger;
+            _hub = hub;
         }
 
         [HttpGet]
