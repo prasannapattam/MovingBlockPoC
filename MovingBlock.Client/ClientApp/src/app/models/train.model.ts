@@ -3,5 +3,5 @@ export interface TrainModel {
   trainNumber: number,
   trainName: string,
   speed: number,
-  currentTime: Date
+  currentTime: string
 }

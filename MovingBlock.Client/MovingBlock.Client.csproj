@@ -34,7 +34,11 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\src\app\models\" />
-    <Folder Include="ClientApp\src\app\trains\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MovingBlock.Functions\MovingBlock.Functions.csproj" />
+    <ProjectReference Include="..\MovingBlock.Shared\MovingBlock.Shared.csproj" />
   </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
