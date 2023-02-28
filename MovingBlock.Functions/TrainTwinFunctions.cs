@@ -21,5 +21,13 @@ namespace MovingBlock.Functions
                 _trains.TrainData.Add(trainTwin);
             }
         }
+
+        public static void ClearTrains()
+        {
+            lock ( _lockObj)
+            {
+                _trains.TrainData.Clear();
+            }
+        }
     }
 }

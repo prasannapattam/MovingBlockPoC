@@ -6,16 +6,17 @@ import { HttpClient } from '@angular/common/http';
 import { TrainModel } from '../models/train.model';
 import { SignalRService } from '../signalr.service';
 import { TrainDialogComponent } from "../trains/train-dialog.component";
+import { ConfirmationDialogComponent } from '../framework/confirmation-dialog.component';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit, OnDestroy {
   private subscription!: Subscription;
 
-  message: string = "";
-  // sample data
+  // trains from SignalR
   trains: TrainModel[] = [];
 
   constructor(private signalRService: SignalRService, public dialog: MatDialog,
@@ -38,7 +39,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.http.post(this.baseUrl + 'trainstart', model).subscribe();
   }
 
-  openDialog(): void {
+  openStartTrains(): void {
     const dialogRef = this.dialog.open(TrainDialogComponent, {
       width: '250px'
     });
@@ -47,6 +48,19 @@ export class HomeComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(result => {
       if(result !== undefined)
         this.startTrain(result);
+    });
+  }
+
+  openClearTrains(): void {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: {
+        message: 'Clear all Trains?',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((response: boolean) => {
+      if(response)
+        this.http.post(this.baseUrl + 'trainclear', undefined).subscribe();
     });
   }
 }
