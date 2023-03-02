@@ -18,7 +18,8 @@ builder.Services.AddCors(options =>
         });
 });
 builder.Services.AddSignalR();
-builder.Services.AddHostedService<TimerService>();
+builder.Services.AddHostedService<UIService>();
+builder.Services.AddHostedService<SimulatorService>();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();

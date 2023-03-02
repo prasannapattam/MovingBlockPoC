@@ -5,20 +5,24 @@ namespace MovingBlock.Functions
 {
     public static class TrainTwinFunctions
     {
-        private static readonly TrainTwinData _trains = TrainTwinData.GetInstance();
+        private static readonly TwinData _twinData = TwinData.Instance;
         private static readonly object _lockObj = new object();
 
         public static List<TrainModel> GetTrains()
         {
-            return _trains.TrainData;
+            return _twinData.Trains;
         }
 
-        public static void StartTrain(TrainModel trainTwin)
+        public static void CreateTrainTwin(TrainModel trainTwin)
         {
             lock (_lockObj)
             {
-                trainTwin.Id = _trains.TrainData.Count + 1;
-                _trains.TrainData.Add(trainTwin);
+                trainTwin.Id = _twinData.Trains.Count + 1;
+                trainTwin.FrontSensor = new LocationSensor(trainTwin.Id + "-front", SensorPosition.Front);
+                trainTwin.RearSensor = new LocationSensor(trainTwin.Id + "-rear", SensorPosition.Rear);
+                _twinData.Trains.Add(trainTwin);
+                _twinData.Sensors.Add(trainTwin.FrontSensor.SensorId, trainTwin.FrontSensor);
+                _twinData.Sensors.Add(trainTwin.RearSensor.SensorId, trainTwin.RearSensor);
             }
         }
 
@@ -26,7 +30,7 @@ namespace MovingBlock.Functions
         {
             lock ( _lockObj)
             {
-                _trains.TrainData.Clear();
+                _twinData.Trains.Clear();
             }
         }
     }
