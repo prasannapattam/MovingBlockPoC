@@ -16,7 +16,7 @@ namespace MovingBlock.Client.Services
             while (!stoppingToken.IsCancellationRequested)
             {
                 // Generate a timer event every second
-                List<TrainModel> trains = TrainTwinFunctions.GetTrains();
+                List<TrainModel> trains = DigitalTwinFunctions.GetTrains();
                 await Task.Delay(1000);
             }
         }

@@ -11,7 +11,7 @@ namespace MovingBlock.Client.Controllers
         [HttpPost]
         public IActionResult Post()
         {
-            TrainTwinFunctions.ClearTrains();
+            DigitalTwinFunctions.ClearTrainTwins();
             return Ok();
         }
     }

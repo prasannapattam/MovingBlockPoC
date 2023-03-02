@@ -19,7 +19,7 @@ namespace MovingBlock.Client.Services
             while (!stoppingToken.IsCancellationRequested)
             {
                 // Generate a timer event every second
-                List<TrainModel> trains = TrainTwinFunctions.GetTrains();
+                List<TrainModel> trains = DigitalTwinFunctions.GetTrains();
                 await _hubContext.Clients.All.SendAsync("timerEvent", trains);
                 await Task.Delay(1000);
             }

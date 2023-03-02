@@ -12,15 +12,27 @@ namespace MovingBlock.Functions
     public static class DeviceTwinFunctions
     {
         private static readonly TwinData _twinData = TwinData.Instance;
-        private static readonly EventQueue<LocationSensor> _sensorQueue = EventQueue<LocationSensor>.Instance;
+        private static readonly EventQueue<LocationSensorModel> _sensorQueue = EventQueue<LocationSensorModel>.Instance;
 
         private static readonly object _lockObj = new object();
 
-        public static void ProcessGeoSensor(LocationSensor sensor)
+        public static void ProcessLocationSensor(LocationSensorModel sensor)
         {
             // getting sensorid
+            LocationSensorModel sensorTwin = _twinData.SensorTwins[sensor.SensorId];
+            // check for geofense & calculating the distance travelled by sensor
+            if (sensor.CurrentLocation.Longitude > _twinData.SectionTwin?.StartLocation?.Longitude)
+            {
+                sensorTwin.DistanceTravelledFromLast = DistanceCalculator.CalculateDistance(sensor.CurrentLocation, sensorTwin.CurrentLocation);
+                sensorTwin.CurrentLocation = sensor.CurrentLocation;
+            }
+            else
+            {
+                sensorTwin.DistanceTravelledFromLast = 0;
+                sensorTwin.CurrentLocation.Longitude = _twinData.SectionTwin!.StartLocation!.Longitude;
+            }
 
+            _sensorQueue.Enqueue(sensorTwin);
         }
-
     }
 }

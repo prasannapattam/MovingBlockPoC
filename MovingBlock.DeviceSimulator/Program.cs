@@ -1,61 +1,39 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using MovingBlock.Functions;
+using MovingBlock.Functions.Data;
+using MovingBlock.Shared.Models;
+using MovingBlock.Shared.Utilities;
 
-var point1 = new Location(17, 100);
-var point2 = new Location(17, 100);
+Console.WriteLine("Started");
 
-// 10 m Longitude change:
-double longchangeonem = 0.0000093960227;
-point2.Longitude = point1.Longitude + longchangeonem;
-Console.WriteLine(CalculateDistance(point1, point2));
-point2.Longitude = point1.Longitude + longchangeonem * 10;
-Console.WriteLine(CalculateDistance(point1, point2));
-point2.Longitude = point1.Longitude + longchangeonem * 100;
-Console.WriteLine(CalculateDistance(point1, point2));
-point2.Longitude = point1.Longitude + longchangeonem * 1000;
-Console.WriteLine(CalculateDistance(point1, point2));
-point2.Longitude = point1.Longitude + longchangeonem * 50000;
-Console.WriteLine(CalculateDistance(point1, point2));
+// creating SectionTwin
+SectionModel sectionTwin = DigitalTwinFunctions.CreateSectionTwin();
 
-Console.WriteLine("---------------------------");
-point2 = GetPoint2(point1, 1);
-Console.WriteLine(CalculateDistance(point1, point2));
-point2 = GetPoint2(point1, 10);
-Console.WriteLine(CalculateDistance(point1, point2));
-point2 = GetPoint2(point1, 100);
-Console.WriteLine(CalculateDistance(point1, point2));
-point2 = GetPoint2(point1, 1000);
-Console.WriteLine(CalculateDistance(point1, point2));
-point2 = GetPoint2(point1, 50000);
-Console.WriteLine(CalculateDistance(point1, point2));
-
-double CalculateDistance(Location point1, Location point2)
+TrainModel trainModel = new TrainModel()
 {
-    var lat1 = point1.Latitude * (Math.PI / 180.0);
-    var long1 = point1.Longitude * (Math.PI / 180.0);
-    var lat2 = point2.Latitude * (Math.PI / 180.0);
-    var long2 = point2.Longitude * (Math.PI / 180.0) - long1;
-    var dist = Math.Pow(Math.Sin((lat2 - lat1) / 2.0), 2.0) +
-             Math.Cos(lat1) * Math.Cos(lat2) * Math.Pow(Math.Sin(long2 / 2.0), 2.0);
-    return 6376500.0 * (2.0 * Math.Atan2(Math.Sqrt(dist), Math.Sqrt(1.0 - dist)));
+    TrainNumber = 1,
+    TrainName = "PPK",
+    TrainLength = 600,
+    Speed = 500 // sectionTwin.Speed
+};
+DigitalTwinFunctions.CreateTrainTwin(trainModel);
+
+List<TrainModel> trainTwins = DigitalTwinFunctions.GetTrains();
+LocationSensorModel frontSensor = new LocationSensorModel(trainTwins[0].FrontSensor!);
+LocationSensorModel rearSensor = new LocationSensorModel(trainTwins[0].RearSensor!);
+
+int timeDelay = 1; // secs
+int timeDelayms = timeDelay * 1000;
+double distanceTravelled = trainModel.Speed * (5.0 / 18.0) * timeDelay;
+
+while (trainTwins.Count > 0)
+{
+    Console.WriteLine($"{trainTwins[0].FrontPathTravelled} - {trainTwins[0].RearPathTravelled}");
+    frontSensor.CurrentLocation = DistanceCalculator.GetPoint2(frontSensor.CurrentLocation, distanceTravelled);
+    rearSensor.CurrentLocation = DistanceCalculator.GetPoint2(rearSensor.CurrentLocation, distanceTravelled);
+    DeviceTwinFunctions.ProcessLocationSensor(frontSensor);
+    DeviceTwinFunctions.ProcessLocationSensor(rearSensor);
+    await Task.Delay(1000);
+    
+    //break;
 }
 
-Location GetPoint2(Location point1, double dist)
-{
-    Location point2 = new Location(point1.Latitude, point1.Longitude);
-    double longchangeonem = 0.0000093960227;
-    point2.Longitude += longchangeonem * dist;
-    return point2;
-}
-
-public class Location
-{
-    public Location(double latitude, double longitude)
-    {
-        Latitude = latitude;
-        Longitude = longitude;
-    }
-
-    public double Latitude { get; set; }
-    public double Longitude { get; set; }
-}

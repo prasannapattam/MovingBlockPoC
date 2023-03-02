@@ -11,7 +11,7 @@ namespace MovingBlock.Client.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] TrainModel model)
         {
-            TrainTwinFunctions.CreateTrainTwin(model);
+            DigitalTwinFunctions.CreateTrainTwin(model);
             return Ok(model);
         }
     }
