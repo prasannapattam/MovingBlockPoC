@@ -1,11 +1,6 @@
 ﻿using MovingBlock.Functions.Data;
 using MovingBlock.Shared.Models;
 using MovingBlock.Shared.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MovingBlock.Functions
 {
@@ -20,17 +15,20 @@ namespace MovingBlock.Functions
         {
             // getting sensorid
             LocationSensorModel sensorTwin = _twinData.SensorTwins[sensor.SensorId];
+            double distanceTravelled = DistanceCalculator.CalculateDistance(sensor.CurrentLocation, sensorTwin.CurrentLocation);
+
             // check for geofense & calculating the distance travelled by sensor
             if (sensor.CurrentLocation.Longitude > _twinData.SectionTwin?.StartLocation?.Longitude)
             {
-                sensorTwin.DistanceTravelledFromLast = DistanceCalculator.CalculateDistance(sensor.CurrentLocation, sensorTwin.CurrentLocation);
-                sensorTwin.CurrentLocation = sensor.CurrentLocation;
+                sensorTwin.distanceTravelled = distanceTravelled;
             }
             else
             {
-                sensorTwin.DistanceTravelledFromLast = 0;
-                sensorTwin.CurrentLocation.Longitude = _twinData.SectionTwin!.StartLocation!.Longitude;
+                sensorTwin.distanceTravelled = 0;
             }
+
+            sensorTwin.Speed = distanceTravelled / sensor.TimeElapsed;
+            sensorTwin.CurrentLocation = sensor.CurrentLocation;
 
             _sensorQueue.Enqueue(sensorTwin);
         }

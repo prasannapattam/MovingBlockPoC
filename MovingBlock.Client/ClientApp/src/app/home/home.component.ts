@@ -19,6 +19,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   // trains from SignalR
   trains: TrainModel[] = [];
 
+  dummyTrain: TrainModel = <TrainModel>{
+    trainNumber: 123,
+    trainName: "PPK",
+    speed: 100,
+    trainLength: 600
+  }
+
   constructor(private signalRService: SignalRService, public dialog: MatDialog,
                 private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
   }
@@ -36,12 +43,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   startTrain(model: TrainModel): void {
-    this.http.post(this.baseUrl + 'trainstart', model).subscribe();
+    this.http.post(this.baseUrl + 'simulator/createtraintwin', model).subscribe();
   }
 
   openStartTrains(): void {
     const dialogRef = this.dialog.open(TrainDialogComponent, {
-      width: '250px'
+      width: '250px',
+      data: this.dummyTrain
     });
 
     // Get the result from the dialog after it is closed
@@ -60,7 +68,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     dialogRef.afterClosed().subscribe((response: boolean) => {
       if(response)
-        this.http.post(this.baseUrl + 'trainclear', undefined).subscribe();
+        this.http.post(this.baseUrl + 'simulator/cleartraintwins', undefined).subscribe();
     });
   }
 }

@@ -10,30 +10,36 @@ SectionModel sectionTwin = DigitalTwinFunctions.CreateSectionTwin();
 
 TrainModel trainModel = new TrainModel()
 {
-    TrainNumber = 1,
+    TrainNumber = 123,
     TrainName = "PPK",
     TrainLength = 600,
-    Speed = 500 // sectionTwin.Speed
+    Speed = 100 // sectionTwin.Speed
 };
 DigitalTwinFunctions.CreateTrainTwin(trainModel);
 
 List<TrainModel> trainTwins = DigitalTwinFunctions.GetTrains();
-LocationSensorModel frontSensor = new LocationSensorModel(trainTwins[0].FrontSensor!);
-LocationSensorModel rearSensor = new LocationSensorModel(trainTwins[0].RearSensor!);
+TrainModel trainTwin = trainTwins[0];
+LocationSensorModel frontSensor = new LocationSensorModel(trainTwin.FrontSensor!);
+LocationSensorModel rearSensor = new LocationSensorModel(trainTwin.RearSensor!);
 
 int timeDelay = 1; // secs
 int timeDelayms = timeDelay * 1000;
-double distanceTravelled = trainModel.Speed * (5.0 / 18.0) * timeDelay;
 
 while (trainTwins.Count > 0)
 {
-    Console.WriteLine($"{trainTwins[0].FrontPathTravelled} - {trainTwins[0].RearPathTravelled}");
+    Console.WriteLine($"{trainTwin.FrontTravelled:F2} - {trainTwin.RearTravelled:F2}");
+
+    Random random = new Random();
+    double randomNumber = Math.Round(random.NextDouble() * 6 - 3, 2);
+    double speed = trainTwin.Speed + randomNumber;
+
+    double distanceTravelled = speed * (5.0 / 18.0) * timeDelay;
     frontSensor.CurrentLocation = DistanceCalculator.GetPoint2(frontSensor.CurrentLocation, distanceTravelled);
     rearSensor.CurrentLocation = DistanceCalculator.GetPoint2(rearSensor.CurrentLocation, distanceTravelled);
+    frontSensor.TimeElapsed = timeDelay;
+    rearSensor.TimeElapsed = timeDelay;
     DeviceTwinFunctions.ProcessLocationSensor(frontSensor);
     DeviceTwinFunctions.ProcessLocationSensor(rearSensor);
-    await Task.Delay(1000);
-    
-    //break;
+    await Task.Delay(timeDelayms);
 }
 

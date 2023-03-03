@@ -1,12 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MovingBlock.Functions;
+using MovingBlock.Shared.Models;
 
 namespace MovingBlock.Client.Controllers
 {
-    public class TrainController : Controller
+    public class SimulatorController : Controller
     {
-        public IActionResult Index()
+        [HttpPost]
+        public IActionResult CreateTrainTwin([FromBody] TrainModel model)
         {
-            return View();
+            DigitalTwinFunctions.CreateTrainTwin(model);
+            return Ok(model);
+        }
+
+        [HttpPost]
+        public IActionResult ClearTrainTwins()
+        {
+            DigitalTwinFunctions.ClearTrainTwins();
+            return Ok();
         }
     }
 }

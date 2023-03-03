@@ -3,5 +3,7 @@ export interface TrainModel {
   trainNumber: number,
   trainName: string,
   speed: number,
-  currentTime: string
+  trainLength: number
+  frontTravelled: number,  // meters
+  rearTravelled: number  // meters
 }

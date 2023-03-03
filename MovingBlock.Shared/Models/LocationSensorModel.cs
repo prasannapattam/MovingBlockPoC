@@ -7,7 +7,9 @@
             SensorId = sensorId;
             Position = position;
             CurrentLocation = location;
-            DistanceTravelledFromLast = 0;
+            distanceTravelled = 0;
+            Speed = 0;
+            TimeElapsed = 0;
         }
 
         public LocationSensorModel(LocationSensorModel sensor)
@@ -15,12 +17,16 @@
             SensorId = sensor.SensorId;
             Position = sensor.Position;
             CurrentLocation = sensor.CurrentLocation;
-            DistanceTravelledFromLast = 0;
+            distanceTravelled = 0;
+            Speed = 0;
+            TimeElapsed = 0;
         }
 
         public string SensorId { get; set; }
         public SensorPosition Position { get; set; }
         public Location CurrentLocation { get; set; }
-        public double DistanceTravelledFromLast { get; set; } // meters
+        public double distanceTravelled { get; set; } // meters
+        public double Speed { get; set; }
+        public int TimeElapsed { get; set; }
     }
 }

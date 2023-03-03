@@ -2,13 +2,16 @@
 <div mat-dialog-content>
   <form #form="ngForm">
     <div mat-form-field>
-      <input matInput placeholder="Train Number" name="trainNumber" ngModel required>
+      <input matInput placeholder="Train Number" name="trainNumber" [(ngModel)]="data.trainNumber" required />
     </div>
     <div mat-form-field>
-      <input matInput placeholder="Train Name" name="trainName" ngModel required>
+      <input matInput placeholder="Train Name" name="trainName" [(ngModel)]="data.trainName" required>
     </div>
     <div mat-form-field>
-      <input matInput placeholder="Speed" name="speed" ngModel required>
+      <input matInput placeholder="Speed" name="speed" [(ngModel)]="data.speed" required>
+    </div>
+    <div mat-form-field>
+      <input matInput placeholder="Train Length" name="trainLength" [(ngModel)]="data.trainLength" required>
     </div>
   </form>
 </div>

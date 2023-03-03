@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-train-dialog',
@@ -8,7 +8,9 @@ import { MatDialogRef } from '@angular/material/dialog';
 export class TrainDialogComponent {
 
   constructor(
-    public dialogRef: MatDialogRef<TrainDialogComponent>) { }
+    public dialogRef: MatDialogRef<TrainDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+  }
 
   // Close the dialog without passing any data
   onCancel(): void {
