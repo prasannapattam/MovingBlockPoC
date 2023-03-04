@@ -1,4 +1,7 @@
+<div class="text-right">
+  <button mat-raised-button (click)="openStartTrains()">Start Train</button>
+  <button mat-raised-button (click)="openClearTrains()">Clear All Trains</button>
+</div>
+<app-section [section]="section" />
 <!--<app-railway-path></app-railway-path>-->
-<button mat-raised-button (click)="openStartTrains()">Start Train</button>
-<button mat-raised-button (click)="openClearTrains()">Clear All Trains</button>
 <app-train-list [trains]="trains" />

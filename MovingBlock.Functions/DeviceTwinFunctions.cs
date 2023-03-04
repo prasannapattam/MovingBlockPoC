@@ -18,9 +18,19 @@ namespace MovingBlock.Functions
             double distanceTravelled = DistanceCalculator.CalculateDistance(sensor.CurrentLocation, sensorTwin.CurrentLocation);
 
             // check for geofense & calculating the distance travelled by sensor
-            if (sensor.CurrentLocation.Longitude > _twinData.SectionTwin?.StartLocation?.Longitude)
+            if (sensor.CurrentLocation.Longitude > _twinData.SectionTwin.StartLocation.Longitude)
             {
-                sensorTwin.distanceTravelled = distanceTravelled;
+                // checking when the sensor entered the section
+                if (sensorTwin.distanceTravelled == 0)
+                {
+                    sensorTwin.distanceTravelled = DistanceCalculator.CalculateDistance(sensor.CurrentLocation, _twinData.SectionTwin.StartLocation);
+                }
+                else
+                {
+                    sensorTwin.distanceTravelled = distanceTravelled;
+                }
+
+                //sensorTwin.distanceTravelled = distanceTravelled;
             }
             else
             {

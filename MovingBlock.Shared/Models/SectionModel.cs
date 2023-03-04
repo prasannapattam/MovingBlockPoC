@@ -1,19 +1,16 @@
-﻿    using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
 namespace MovingBlock.Shared.Models
 {
     public class SectionModel
     {
-        public int Distance { get; set; }  // kms
-        public int Speed { get; set; }     // kmph
-        public int SafeDistance { get; set; } // kms
-        public int CriticalDistance { get; set; } // kms
+        public int Length { get; set; }  // meters
+        public double Speed { get; set; }     // meters / sec
+        public int SafeDistance { get; set; } // meters
+        public int CriticalDistance { get; set; } // meters
 
-        public Location? StartLocation { get; set; }
-        public Location? EndLocation { get; set;}
+        public Location StartLocation { get; set; }
+        public Location EndLocation { get; set;}
     }
 }
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.

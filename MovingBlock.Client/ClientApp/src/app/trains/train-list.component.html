@@ -6,8 +6,10 @@
           <mat-card-title>{{ train.trainNumber }} - {{ train.trainName }}</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <p>Speed: {{ train.speed }}</p>
-          <p>Length: {{ train.trainLength }}</p>
+          <p>Front: {{ train.frontTravelled.toLocaleString("en-IN") }} meters</p>
+          <p>Rear: {{ train.rearTravelled.toLocaleString("en-IN") }} meters</p>
+          <p>Speed: {{ train.speed.toLocaleString("en-IN") }} km/h</p>
+          <p>Length: {{ train.trainLength }} meters</p>
         </mat-card-content>
       </mat-card>
     </div>

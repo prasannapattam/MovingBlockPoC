@@ -23,32 +23,35 @@ namespace MovingBlock.Functions
         {
             var sectionTwin = new SectionModel()
             {
-                Distance = 3, // kms
-                Speed = 145, // kmph
-                SafeDistance = 2, // km
-                CriticalDistance = 1, //km
+                Length = 1 * 1000, // meters
+                Speed = 145 * (5.0 / 18.0), // meters/sec
+                SafeDistance = 2 * 1000, // meters
+                CriticalDistance = 1 * 1000, // meters
                 StartLocation = new Location(17, 78), // Hyderabad location
             };
 
-            sectionTwin.EndLocation = DistanceCalculator.GetPoint2(sectionTwin.StartLocation, sectionTwin.Distance * 1000);
-            _twinData.SectionTwin = sectionTwin;
+            sectionTwin.EndLocation = DistanceCalculator.GetPoint2(sectionTwin.StartLocation, sectionTwin.Length);
+
+            lock (_lockObj)
+            {
+                _twinData.SectionTwin = sectionTwin;
+            }
             return sectionTwin;
         }
 
         public static void CreateTrainTwin(TrainModel trainTwin)
         {
             if(_twinData.SectionTwin == null)
-            {
-                lock(_lockObj)
-                {
-                    CreateSectionTwin();
-                }
-            }
+                CreateSectionTwin();
 
             lock (_lockObj)
             {
-                trainTwin.Id = _twinData.TrainTwins.Count + 1;
-                Location frontLocation = _twinData.SectionTwin?.StartLocation!;
+                if (_twinData.TrainTwins.Count > 0)
+                    trainTwin.Id = _twinData.TrainTwins.Last().Id;
+                else
+                    trainTwin.Id = 1;
+                trainTwin.Section = _twinData.SectionTwin!;
+                Location frontLocation = _twinData.SectionTwin!.StartLocation;
                 Location rearLocation = DistanceCalculator.GetPoint2(frontLocation, -trainTwin.TrainLength);
 
                 trainTwin.FrontSensor = new LocationSensorModel(trainTwin.Id + "-front", SensorPosition.Front, frontLocation);
@@ -70,11 +73,14 @@ namespace MovingBlock.Functions
 
         public static List<TrainModel> GetTrains()
         {
-            return new List<TrainModel>(_twinData.TrainTwins);
+            return _twinData.TrainTwins;
         }
 
         public static  SectionModel GetSection()
         {
+            if(_twinData.SectionTwin == null)
+                CreateSectionTwin();
+
             return _twinData.SectionTwin!;
         }
 
@@ -85,7 +91,7 @@ namespace MovingBlock.Functions
             // getting train for the sensor
             foreach (TrainModel train in _twinData.TrainTwins)
             {
-                if(train.FrontSensor?.SensorId == sensor.SensorId || train.RearSensor?.SensorId == sensor.SensorId)
+                if(train.FrontSensor.SensorId == sensor.SensorId || train.RearSensor.SensorId == sensor.SensorId)
                 {
                     trainTwin = train;
                     break;
@@ -105,16 +111,17 @@ namespace MovingBlock.Functions
                 trainTwin.RearTravelled += sensor.distanceTravelled;
             }
 
-            int sectionDistancemtrs = (int) _twinData.SectionTwin?.Distance! * 1000;
+            trainTwin.Speed = sensor.Speed;
+
             // checking if the train crossed the section
-            if (trainTwin.FrontTravelled > sectionDistancemtrs &&
-                trainTwin.RearTravelled > sectionDistancemtrs)
+            if (trainTwin.FrontTravelled > _twinData.SectionTwin.Length &&
+                trainTwin.RearTravelled > _twinData.SectionTwin.Length)
             {
                 lock (_lockObj)
                 {
-                    _twinData.SensorTwins.Remove(trainTwin.FrontSensor?.SensorId!);
-                    _twinData.SensorTwins.Remove(trainTwin.RearSensor?.SensorId!);
-                    _twinData.TrainTwins.Remove(trainTwin);
+                    _twinData.SensorTwins.Remove(trainTwin.FrontSensor.SensorId);
+                    _twinData.SensorTwins.Remove(trainTwin.RearSensor.SensorId);
+                    _twinData.TrainTwins.RemoveAll(t => t.Id == trainTwin.Id);
                 }
             }
         }

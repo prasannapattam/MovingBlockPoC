@@ -3,10 +3,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
-import { TrainModel } from '../models/train.model';
 import { SignalRService } from '../signalr.service';
 import { TrainDialogComponent } from "../trains/train-dialog.component";
 import { ConfirmationDialogComponent } from '../framework/confirmation-dialog.component';
+
+import { TrainModel } from '../models/train.model';
+import { SectionModel } from '../models/section.model';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +18,7 @@ import { ConfirmationDialogComponent } from '../framework/confirmation-dialog.co
 export class HomeComponent implements OnInit, OnDestroy {
   private subscription!: Subscription;
 
-  // trains from SignalR
+  section: SectionModel = <SectionModel>{};
   trains: TrainModel[] = [];
 
   dummyTrain: TrainModel = <TrainModel>{
@@ -28,10 +30,22 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(private signalRService: SignalRService, public dialog: MatDialog,
                 private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+
+    http.get<SectionModel>(baseUrl + 'api/section').subscribe(response => {
+      // coverting to km & kmph
+      response.length = response.length / 1000;
+      response.criticalDistance = response.criticalDistance / 1000;
+      response.safeDistance = response.safeDistance / 1000;
+      response.speed = response.speed * 18 / 5.0;
+      this.section = response;
+    });
   }
 
   ngOnInit(): void {
-    this.subscription = this.signalRService.getObservable().subscribe(trains => {
+    this.subscription = this.signalRService.getObservable().subscribe((trains: TrainModel[]) => {
+      trains.forEach(train => {
+        train.speed = train.speed * (18.0 / 5);
+      });
       this.trains = trains;
     });
   }
@@ -43,6 +57,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   startTrain(model: TrainModel): void {
+    model.speed = model.speed * (5.0 / 18);
     this.http.post(this.baseUrl + 'simulator/createtraintwin', model).subscribe();
   }
 

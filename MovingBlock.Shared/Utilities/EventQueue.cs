@@ -7,7 +7,11 @@
         public static EventQueue<T> Instance { get { return instance; } }
 
         private readonly Queue<T> queue = new Queue<T>();
-        public event EventQueueHandler<T>? Enqueued;
+        
+        #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        public event EventQueueHandler<T> Enqueued;
+        #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+
         protected virtual void OnEnqueued(T item)
         {
             if (Enqueued != null)

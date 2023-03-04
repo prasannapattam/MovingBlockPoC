@@ -9,6 +9,7 @@ namespace MovingBlock.Client.Controllers
         [HttpPost]
         public IActionResult CreateTrainTwin([FromBody] TrainModel model)
         {
+            model.SimulatorSpeed = model.Speed;
             DigitalTwinFunctions.CreateTrainTwin(model);
             return Ok(model);
         }

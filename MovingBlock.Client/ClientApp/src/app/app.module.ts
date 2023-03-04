@@ -23,6 +23,7 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { ConfirmationDialogComponent } from './framework/confirmation-dialog.component';
 
 // Train
+import { SectionComponent } from "./trains/section.component";
 import { TrainListComponent } from "./trains/train-list.component";
 import { TrainDialogComponent } from "./trains/train-dialog.component";
 import { RailwayPathComponent } from "./trains/railway-path.component";
@@ -42,6 +43,7 @@ import { SignalRService } from './signalr.service';
 
     ConfirmationDialogComponent,
 
+    SectionComponent,
     TrainListComponent,
     TrainDialogComponent,
     RailwayPathComponent

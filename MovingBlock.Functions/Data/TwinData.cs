@@ -1,5 +1,4 @@
-﻿    using MovingBlock.Shared.Models;
-using MovingBlock.Shared.Utilities;
+﻿using MovingBlock.Shared.Models;
 
 namespace MovingBlock.Functions.Data
 {
@@ -11,6 +10,8 @@ namespace MovingBlock.Functions.Data
         public List<TrainModel> TrainTwins { get; } = new List<TrainModel>();
         public Dictionary<string, LocationSensorModel> SensorTwins { get; } = new Dictionary<string, LocationSensorModel>();
 
-        public SectionModel? SectionTwin { get; set; }
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        public SectionModel SectionTwin { get; set; }
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     }
 }

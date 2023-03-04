@@ -29,7 +29,7 @@ export class RailwayPathComponent implements OnInit {
     let intervalID = setInterval(() => {
       if (this.trainLocation < this.pathPixel) {
         // distnace travelled
-        let distance = (this.speedkmph * 1000 / 3600) * this.intervalsecs;
+        let distance = (this.speedkmph * 5.0 / 18.0) * this.intervalsecs;
         this.trainLocation += Math.round(distance * this.pixelPerMeter);
       }
       else
