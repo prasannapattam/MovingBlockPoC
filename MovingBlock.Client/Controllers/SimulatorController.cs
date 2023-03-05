@@ -15,6 +15,13 @@ namespace MovingBlock.Client.Controllers
         }
 
         [HttpPost]
+        public IActionResult SetTrainSpeed([FromBody] TrainSpeedModel model)
+        {
+            DigitalTwinFunctions.SetTrainSpeed(model);
+            return Ok();
+        }
+
+        [HttpPost]
         public IActionResult ClearTrainTwins()
         {
             DigitalTwinFunctions.ClearTrainTwins();

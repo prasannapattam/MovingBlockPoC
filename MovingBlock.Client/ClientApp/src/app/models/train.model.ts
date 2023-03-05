@@ -1,9 +1,10 @@
 export interface TrainModel {
-  id: number,
+  trainID: number,
   trainNumber: number,
   trainName: string,
   speed: number, // kmph
-  trainLength: number
+  recommendedSpeed: number, //kmph
+  trainLength: number // meters
   frontTravelled: number,  // meters
   rearTravelled: number  // meters
 }

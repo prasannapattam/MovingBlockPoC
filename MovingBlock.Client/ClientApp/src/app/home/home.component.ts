@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       response.length = response.length / 1000;
       response.criticalDistance = response.criticalDistance / 1000;
       response.safeDistance = response.safeDistance / 1000;
-      response.speed = response.speed * 18 / 5.0;
+      response.speed = response.speed * (18.0 / 5);
       this.section = response;
     });
   }
@@ -45,6 +45,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.subscription = this.signalRService.getObservable().subscribe((trains: TrainModel[]) => {
       trains.forEach(train => {
         train.speed = train.speed * (18.0 / 5);
+        train.recommendedSpeed = train.recommendedSpeed * (18.0 / 5);
       });
       this.trains = trains;
     });
@@ -59,6 +60,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   startTrain(model: TrainModel): void {
     model.speed = model.speed * (5.0 / 18);
     this.http.post(this.baseUrl + 'simulator/createtraintwin', model).subscribe();
+  }
+
+  adjustSpeed(speedModel: any): void {
+    speedModel.speed = speedModel.speed * (5.0 / 18);
+    this.http.post(this.baseUrl + 'simulator/settrainspeed', speedModel).subscribe();
   }
 
   openStartTrains(): void {

@@ -25,8 +25,9 @@ import { ConfirmationDialogComponent } from './framework/confirmation-dialog.com
 // Train
 import { SectionComponent } from "./trains/section.component";
 import { TrainListComponent } from "./trains/train-list.component";
-import { TrainDialogComponent } from "./trains/train-dialog.component";
 import { RailwayPathComponent } from "./trains/railway-path.component";
+import { TrainDialogComponent } from "./trains/train-dialog.component";
+import { SpeedDialogComponent } from "./trains/speed-dialog.component";
 
 //services
 import { SignalRService } from './signalr.service';
@@ -44,9 +45,10 @@ import { SignalRService } from './signalr.service';
     ConfirmationDialogComponent,
 
     SectionComponent,
+    RailwayPathComponent,
     TrainListComponent,
     TrainDialogComponent,
-    RailwayPathComponent
+    SpeedDialogComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

@@ -2,14 +2,22 @@
   <div class="row">
     <div class="col-md-6 col-lg-3" *ngFor="let train of trains">
       <mat-card>
-        <mat-card-header>
+        <mat-card-header style="justify-content: center;">
           <mat-card-title>{{ train.trainNumber }} - {{ train.trainName }}</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <p>Front: {{ train.frontTravelled.toLocaleString("en-IN") }} meters</p>
-          <p>Rear: {{ train.rearTravelled.toLocaleString("en-IN") }} meters</p>
-          <p>Speed: {{ train.speed.toLocaleString("en-IN") }} km/h</p>
-          <p>Length: {{ train.trainLength }} meters</p>
+          <p>
+            <b>Block</b>:<br />
+            Front: {{ train.frontTravelled | number: '1.0-2' }} meters <br />
+            Rear: {{ train.rearTravelled | number: '1.0-2' }} meters
+          </p>
+          <p>Train Length: {{ train.trainLength }} meters</p>
+          <p>
+            <b>Speed</b>:<br />
+            Current Speed: {{ train.speed | number: '1.0-2' }} km/h <br />
+            Recommended Speed: {{ train.recommendedSpeed | number: '1.0-2' }} km/h <br />
+            <button mat-raised-button (click)="adjustSpeed(train)">Set Speed</button>
+          </p>
         </mat-card-content>
       </mat-card>
     </div>
