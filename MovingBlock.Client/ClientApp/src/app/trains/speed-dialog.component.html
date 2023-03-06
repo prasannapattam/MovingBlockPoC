@@ -5,8 +5,8 @@
     <div mat-form-field>
       <input [hidden]="true" name="trainID" [(ngModel)]="train.trainID">
       <input matInput placeholder="Speed" name="speed"
-            [ngModel]="train.speed | number: '1.0-0'"
-             (ngModelChange)="train.speed=$event" required />
+            [ngModel]="train.recommendedSpeed | number: '1.0-0'"
+             (ngModelChange)="train.recommendedSpeed=$event" required />
     </div>
   </form>
 </div>

@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { SpeedDialogComponent } from "./speed-dialog.component";
 import { TrainModel } from '../models/train.model';
+import { RadialGaugeOptions } from '@grptx/ng-canvas-gauges';
 
 @Component({
   selector: 'app-train-list',
@@ -12,6 +13,43 @@ import { TrainModel } from '../models/train.model';
 export class TrainListComponent {
   @Input() trains!: TrainModel[];
   @Output() adjustSpeedEvent = new EventEmitter<TrainModel>();
+
+  radial_options = <RadialGaugeOptions>{
+  //  borderShadowWidth: 0,
+  //  borderOuterWidth: 0,
+  //  borderMiddleWidth: 0,
+  //  borderInnerWidth: 0,
+  //  strokeTicks: true,
+  //  highlights: [{ "from": 80, "to": 100, "color": "rgba(200, 50, 50, .75)" }],
+  //  borders: false,
+    width: 200,
+    height: 200,
+    title: "Km/h",
+    minValue: 0,
+    maxValue: 200,
+    startAngle: 90,
+    ticksAngle: 180,
+    valueBox: false,
+    majorTicks: [
+      "0", "20", "40", "60", "80", "100", "120", "140", "160", "180", "200"
+    ],
+    minorTicks: 2,
+    strokeTicks: true,
+    highlights: [
+      {
+        "from": 150,
+        "to": 200,
+        "color": "rgba(200, 50, 50, .75)"
+      }
+    ],
+    borderShadowWidth: 0,
+    borders: false,
+    needleType: "arrow",
+    needleWidth: 2,
+    animationDuration: 1500,
+    animationRule: "linear",
+    colorPlate: "#fff",
+  };
 
   constructor(public dialog: MatDialog) { }
 

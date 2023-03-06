@@ -34,10 +34,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     http.get<SectionModel>(baseUrl + 'api/section').subscribe(response => {
       // coverting to km & kmph
       response.length = response.length / 1000;
-      response.criticalDistance = response.criticalDistance / 1000;
-      response.safeDistance = response.safeDistance / 1000;
+      response.criticalDistance = response.criticalDistance;
+      response.safeDistance = response.safeDistance;
       response.speed = response.speed * (18.0 / 5);
       this.section = response;
+      // this.createDummyTrains();
     });
   }
 
@@ -92,4 +93,29 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.http.post(this.baseUrl + 'simulator/cleartraintwins', undefined).subscribe();
     });
   }
+
+//  createDummyTrains() {
+//    this.trains = [
+//      <TrainModel>{
+//        trainID: 1,
+//        trainNumber: 123,
+//        trainName: "PPK",
+//        speed: 100,
+//        trainLength: 600,
+//        recommendedSpeed: 145,
+//        frontTravelled: 1800,
+//        rearTravelled: 1200,
+//      },
+//      <TrainModel>{
+//        trainID: 2,
+//        trainNumber: 234,
+//        trainName: "abc",
+//        speed: 100,
+//        trainLength: 600,
+//        recommendedSpeed: 145,
+//        frontTravelled: 2400,
+//        rearTravelled: 1800,
+//      },
+//    ]
+//  }
 }

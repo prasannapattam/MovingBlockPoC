@@ -6,16 +6,20 @@
           <mat-card-title>{{ train.trainNumber }} - {{ train.trainName }}</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <p>
-            <b>Block</b>:<br />
-            Front: {{ train.frontTravelled | number: '1.0-2' }} meters <br />
-            Rear: {{ train.rearTravelled | number: '1.0-2' }} meters
-          </p>
+          <b>Block</b>:<br />
+          <div class="row">
+            <div class="col">
+              Front: {{ train.frontTravelled | number: '1.0-0' }} m
+            </div>
+            <div class="col">
+              Rear: {{ train.rearTravelled | number: '1.0-0' }} m
+            </div>
+          </div>
           <p>Train Length: {{ train.trainLength }} meters</p>
           <p>
             <b>Speed</b>:<br />
-            Current Speed: {{ train.speed | number: '1.0-2' }} km/h <br />
-            Recommended Speed: {{ train.recommendedSpeed | number: '1.0-2' }} km/h <br />
+            Current Speed: {{ train.speed | number: '1.0-0' }} km/h <br />
+            Recommended Speed: {{ train.recommendedSpeed | number: '1.0-0' }} km/h <br />
             <button mat-raised-button (click)="adjustSpeed(train)">Set Speed</button>
           </p>
         </mat-card-content>

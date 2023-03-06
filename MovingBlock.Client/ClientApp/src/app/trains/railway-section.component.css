@@ -1,15 +1,28 @@
-.railway-path {
-  overflow-x: auto;
+.railway-section {
+  overflow-x: hidden;
   margin-bottom: 5px;
 }
 
 .track {
+  padding-top: 6px;
   margin-bottom: 5px;
-  border-bottom: dotted;
+  border-bottom: dotted white;
+  max-width: 1400px;
+  min-height: 50px;
+}
+
+.safe-dist {
+  position: absolute;
+  border: 1px solid grey;
+  max-width: fit-content;
+}
+
+.critical-dist {
+  border: 1px dotted grey;
+  max-width: fit-content;
 }
 
 .loco {
-  width: 24px;
   height: 40px;
   position: relative;
 }

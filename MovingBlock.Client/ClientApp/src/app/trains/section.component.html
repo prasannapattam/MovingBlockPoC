@@ -9,13 +9,13 @@
           <i>Length: </i>{{section.length}} km
         </div>
         <div class="col-sm-3">
-          <i>Speed: </i>{{section.speed}} km/h
+          <i>Speed: </i>{{section.speed | number: '1.0-0'}} km/h
         </div>
         <div class="col-sm-3">
-          <i>Safe Distance: </i>{{section.safeDistance}} km
+          <i>Safe Distance: </i>{{section.safeDistance}} meters
         </div>
         <div class="col-sm-3">
-          <i>Critical Distance: </i>{{section.criticalDistance}} km
+          <i>Critical Distance: </i>{{section.criticalDistance}} meters
         </div>
       </div>
     </mat-card-content>

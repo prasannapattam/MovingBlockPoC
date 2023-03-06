@@ -25,6 +25,7 @@
     "@angular/platform-browser-dynamic": "^15.2.0",
     "@angular/platform-server": "^15.2.0",
     "@angular/router": "^15.2.0",
+    "@grptx/ng-canvas-gauges": "^14.0.11",
     "@microsoft/signalr": "^7.0.3",
     "bootstrap": "^5.2.0",
     "jquery": "^3.6.0",

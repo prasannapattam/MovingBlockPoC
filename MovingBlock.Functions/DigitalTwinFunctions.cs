@@ -23,10 +23,10 @@ namespace MovingBlock.Functions
         {
             var sectionTwin = new SectionModel()
             {
-                Length = 2 * 1000, // meters
-                Speed = 145 * (5.0 / 18.0), // meters/sec
-                SafeDistance = 2 * 1000, // meters
-                CriticalDistance = 1 * 1000, // meters
+                Length = 10 * 1000, // meters
+                Speed = 150 * (5.0 / 18.0), // meters/sec
+                SafeDistance = 350, // meters
+                CriticalDistance = 200, // meters
                 StartLocation = new Location(17, 78), // Hyderabad location
             };
 
@@ -47,7 +47,7 @@ namespace MovingBlock.Functions
             lock (_lockObj)
             {
                 if (_twinData.TrainTwins.Count > 0)
-                    trainTwin.TrainID = _twinData.TrainTwins.Last().TrainID;
+                    trainTwin.TrainID = _twinData.TrainTwins.Last().TrainID + 1;
                 else
                     trainTwin.TrainID = 1;
                 trainTwin.Section = _twinData.SectionTwin!;

@@ -8,6 +8,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
+import { GaugesModule } from '@grptx/ng-canvas-gauges';
+
 
 // Navigation
 import { AppComponent } from './app.component';
@@ -25,7 +27,7 @@ import { ConfirmationDialogComponent } from './framework/confirmation-dialog.com
 // Train
 import { SectionComponent } from "./trains/section.component";
 import { TrainListComponent } from "./trains/train-list.component";
-import { RailwayPathComponent } from "./trains/railway-path.component";
+import { RailwaySectionComponent } from "./trains/railway-section.component";
 import { TrainDialogComponent } from "./trains/train-dialog.component";
 import { SpeedDialogComponent } from "./trains/speed-dialog.component";
 
@@ -45,7 +47,7 @@ import { SignalRService } from './signalr.service';
     ConfirmationDialogComponent,
 
     SectionComponent,
-    RailwayPathComponent,
+    RailwaySectionComponent,
     TrainListComponent,
     TrainDialogComponent,
     SpeedDialogComponent,
@@ -60,7 +62,8 @@ import { SignalRService } from './signalr.service';
       { path: 'fetch-data', component: FetchDataComponent },
     ]),
     BrowserAnimationsModule,
-    MatCardModule, MatDialogModule, MatTooltipModule
+    MatCardModule, MatDialogModule, MatTooltipModule,
+    GaugesModule
   ],
   providers: [SignalRService],
   bootstrap: [AppComponent]
