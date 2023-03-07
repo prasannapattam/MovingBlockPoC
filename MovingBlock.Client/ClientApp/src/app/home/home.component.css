@@ -1,7 +1,5 @@
-button {
-  margin: 5px;
-}
-
-.text-right {
-    text-align: right;
+:host {
+  flex: 1;
+  background: url(/assets/RailSignaling.jpg) no-repeat center center;
+  background-size: cover;
 }

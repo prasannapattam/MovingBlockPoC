@@ -11,9 +11,4 @@ export class TrainDialogComponent {
     public dialogRef: MatDialogRef<TrainDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
   }
-
-  // Close the dialog without passing any data
-  onCancel(): void {
-    this.dialogRef.close();
-  }
 }

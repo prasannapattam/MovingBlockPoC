@@ -15,21 +15,17 @@ export class TrainListComponent {
   @Output() adjustSpeedEvent = new EventEmitter<TrainModel>();
 
   radial_options = <RadialGaugeOptions>{
-  //  borderShadowWidth: 0,
-  //  borderOuterWidth: 0,
-  //  borderMiddleWidth: 0,
-  //  borderInnerWidth: 0,
-  //  strokeTicks: true,
-  //  highlights: [{ "from": 80, "to": 100, "color": "rgba(200, 50, 50, .75)" }],
-  //  borders: false,
-    width: 200,
-    height: 200,
+    width: 220,
+    height: 220,
     title: "Km/h",
     minValue: 0,
     maxValue: 200,
     startAngle: 90,
     ticksAngle: 180,
+
     valueBox: false,
+
+
     majorTicks: [
       "0", "20", "40", "60", "80", "100", "120", "140", "160", "180", "200"
     ],
@@ -48,7 +44,8 @@ export class TrainListComponent {
     needleWidth: 2,
     animationDuration: 1500,
     animationRule: "linear",
-    colorPlate: "#fff",
+
+    colorPlate: "#eee",
   };
 
   constructor(public dialog: MatDialog) { }

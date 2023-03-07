@@ -22,7 +22,7 @@ namespace MovingBlock.Shared.Models
         public int TrainLength { get; set; } // meters
         public double Speed { get; set; } // meters/sec
         public double RecommendedSpeed { get; set; } // meters/sec
-        public double SimulatorSpeed { get; set; }
+        public double SimulatorSpeed { get; set; } // m/s
     }
 }
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.

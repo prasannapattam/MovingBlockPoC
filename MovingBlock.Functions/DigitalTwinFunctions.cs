@@ -25,8 +25,8 @@ namespace MovingBlock.Functions
             {
                 Length = 10 * 1000, // meters
                 Speed = 150 * (5.0 / 18.0), // meters/sec
-                SafeDistance = 350, // meters
-                CriticalDistance = 200, // meters
+                SafeDistance = 200, // meters
+                CriticalDistance = 100, // meters
                 StartLocation = new Location(17, 78), // Hyderabad location
             };
 

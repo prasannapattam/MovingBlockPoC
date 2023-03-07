@@ -1,22 +1,26 @@
 <h2 mat-dialog-title>Enter Train Details</h2>
-<div mat-dialog-content>
+<mat-dialog-content>
   <form #form="ngForm">
-    <div mat-form-field>
-      <input matInput placeholder="Train Number" name="trainNumber" [(ngModel)]="data.trainNumber" required />
-    </div>
-    <div mat-form-field>
-      <input matInput placeholder="Train Name" name="trainName" [(ngModel)]="data.trainName" required>
-    </div>
-    <div mat-form-field>
-      <input matInput placeholder="Speed" name="speed" [(ngModel)]="data.speed" required>
-    </div>
-    <div mat-form-field>
-      <input matInput placeholder="Train Length" name="trainLength" [(ngModel)]="data.trainLength" required>
-    </div>
+    <mat-form-field>
+      <mat-label>Train Number</mat-label>
+      <input matInput name="trainNumber" [(ngModel)]="data.trainNumber" required />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Train Name</mat-label>
+      <input matInput name="trainName" [(ngModel)]="data.trainName" required>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Speed</mat-label>
+      <input matInput name="speed" [(ngModel)]="data.speed" required>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Train Length</mat-label>
+      <input matInput name="trainLength" [(ngModel)]="data.trainLength" required>
+    </mat-form-field>
   </form>
-</div>
+</mat-dialog-content>
 
-<div mat-dialog-actions align="end">
-  <button mat-button (click)="onCancel()">Cancel</button>
-  <button mat-button [disabled]="!form.valid" [mat-dialog-close]="form.value">Start</button>
-</div>
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="false">Cancel</button>
+  <button mat-button color="primary" [mat-dialog-close]="form.value">Start</button>
+</mat-dialog-actions>

@@ -3,3 +3,22 @@
   margin-top: 20px;
   margin-bottom: 20px;
 }
+
+.mat-mdc-card-content {
+  padding-bottom: 0px;
+}
+
+.speed-guage {
+  text-align: center;
+  margin-top: 5px;
+}
+
+.train-details {
+  margin-top: -95px;
+  padding: 0px 20px;
+  text-align: center;
+}
+
+.block-dist {
+    border: 1px solid;
+}

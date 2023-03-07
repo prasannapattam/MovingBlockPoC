@@ -9,6 +9,25 @@ namespace MovingBlock.Functions
 
         public int TimeDelayms { get {  return _timer * 1000; } }
 
+        private double _maxAcceleration;
+        private double _maxDeceleration;
+
+        public DeviceSimulator() 
+        {
+            double u, v, t, s;
+
+            // max acceleration for WP5 
+            u = 110 * 5.0 / 18; // 110 kmph
+            v = 120 * 5.0 / 18; // 120 kmph
+            t = 402; // sec
+            _maxAcceleration = (v - u) / t;
+
+            // maxDeceleration for WP7
+            u = 155 * 5.0 / 18; // 155 kmph
+            s = 1.2 * 1000; // 1.2 kms
+            _maxDeceleration = (u * u) / (2 * s); 
+        }
+
         public List<TrainModel> Initialize()
         {
             // creating SectionTwin
@@ -16,8 +35,8 @@ namespace MovingBlock.Functions
             {
                 TrainNumber = 123,
                 TrainName = "PPK",
-                TrainLength = 600,
-                Speed = 100 * (5.0 / 18),
+                TrainLength = 350,
+                Speed = 120 * (5.0 / 18),
             };
 
             trainModel.SimulatorSpeed = trainModel.Speed;
@@ -45,7 +64,7 @@ namespace MovingBlock.Functions
 
             // slightly changing the speed to show some variance in UI
             Random random = new Random();
-            double randomNumber = Math.Round(random.NextDouble() * 1 - 0.5, 2);
+            double randomNumber = Math.Round(random.NextDouble() * 2 - 1, 2);
             double speed = trainTwin.SimulatorSpeed + randomNumber;
             double distanceTravelled = speed * _timer;
 

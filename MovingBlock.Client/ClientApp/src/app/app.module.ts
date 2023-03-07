@@ -4,9 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 import { GaugesModule } from '@grptx/ng-canvas-gauges';
 
@@ -15,16 +18,13 @@ import { GaugesModule } from '@grptx/ng-canvas-gauges';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-
-//Not required
-import { FadeComponent } from './counter/fade.component';
-import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
+import { MovingBlockComponent } from './home/moving-block.component';
 
 // framework
 import { ConfirmationDialogComponent } from './framework/confirmation-dialog.component';
 
 // Train
+import { LiveViewComponent } from './trains/live-view.component';
 import { SectionComponent } from "./trains/section.component";
 import { TrainListComponent } from "./trains/train-list.component";
 import { RailwaySectionComponent } from "./trains/railway-section.component";
@@ -39,13 +39,11 @@ import { SignalRService } from './signalr.service';
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-
-    FadeComponent,
-    CounterComponent,
-    FetchDataComponent,
+    MovingBlockComponent,
 
     ConfirmationDialogComponent,
 
+    LiveViewComponent,
     SectionComponent,
     RailwaySectionComponent,
     TrainListComponent,
@@ -58,11 +56,11 @@ import { SignalRService } from './signalr.service';
     HttpClientModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: FadeComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
+      { path: 'live', component: LiveViewComponent },
+      { path: 'moving-block', component: MovingBlockComponent },
     ]),
     BrowserAnimationsModule,
-    MatCardModule, MatDialogModule, MatTooltipModule,
+    MatCardModule, MatDialogModule, MatTooltipModule, MatInputModule, MatButtonModule,
     GaugesModule
   ],
   providers: [SignalRService],
