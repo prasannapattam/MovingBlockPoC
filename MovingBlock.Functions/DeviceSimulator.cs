@@ -6,27 +6,7 @@ namespace MovingBlock.Functions
     public class DeviceSimulator
     {
         private int _timer = 1; // secs
-
         public int TimeDelayms { get {  return _timer * 1000; } }
-
-        private double _maxAcceleration;
-        private double _maxDeceleration;
-
-        public DeviceSimulator() 
-        {
-            double u, v, t, s;
-
-            // max acceleration for WP5 
-            u = 110 * 5.0 / 18; // 110 kmph
-            v = 120 * 5.0 / 18; // 120 kmph
-            t = 402; // sec
-            _maxAcceleration = (v - u) / t;
-
-            // maxDeceleration for WP7
-            u = 155 * 5.0 / 18; // 155 kmph
-            s = 1.2 * 1000; // 1.2 kms
-            _maxDeceleration = (u * u) / (2 * s); 
-        }
 
         public List<TrainModel> Initialize()
         {
@@ -57,6 +37,7 @@ namespace MovingBlock.Functions
 
         private void SimulateSensors(TrainModel trainTwin)
         {
+            // Writing block distances
             Console.WriteLine($"{trainTwin.FrontTravelled:F2} - {trainTwin.RearTravelled:F2} : {trainTwin.Speed * 18.0 / 5:F2}");
 
             LocationSensorModel frontSensor = new LocationSensorModel(trainTwin.FrontSensor);
