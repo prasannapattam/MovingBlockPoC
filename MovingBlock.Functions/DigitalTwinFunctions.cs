@@ -113,11 +113,11 @@ namespace MovingBlock.Functions
 
             if(sensor.Position == SensorPosition.Front)
             {
-                trainTwin.FrontTravelled += sensor.distanceTravelled;
+                trainTwin.FrontTravelled += sensor.DistanceTravelled;
             }
             else
             {
-                trainTwin.RearTravelled += sensor.distanceTravelled;
+                trainTwin.RearTravelled += sensor.DistanceTravelled;
             }
 
             trainTwin.Speed = sensor.Speed;

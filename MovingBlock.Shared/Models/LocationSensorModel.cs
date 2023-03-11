@@ -8,7 +8,7 @@ namespace MovingBlock.Shared.Models
             SensorId = sensorId;
             Position = position;
             CurrentLocation = location;
-            distanceTravelled = 0;
+            DistanceTravelled = 0;
             Speed = 0;
             TimeElapsed = 0;
         }
@@ -18,7 +18,7 @@ namespace MovingBlock.Shared.Models
             SensorId = sensor.SensorId;
             Position = sensor.Position;
             CurrentLocation = sensor.CurrentLocation;
-            distanceTravelled = 0;
+            DistanceTravelled = 0;
             Speed = 0;
             TimeElapsed = 0;
         }
@@ -26,7 +26,7 @@ namespace MovingBlock.Shared.Models
         public string SensorId { get; set; }
         public SensorPosition Position { get; set; }
         public Location CurrentLocation { get; set; }
-        public double distanceTravelled { get; set; } // meters
+        public double DistanceTravelled { get; set; } // meters
         public double Speed { get; set; }
         public int TimeElapsed { get; set; }
     }

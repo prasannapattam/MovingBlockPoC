@@ -21,20 +21,20 @@ namespace MovingBlock.Functions
             if (sensor.CurrentLocation.Longitude > _twinData.SectionTwin.StartLocation.Longitude)
             {
                 // checking when the sensor entered the section
-                if (sensorTwin.distanceTravelled == 0)
+                if (sensorTwin.DistanceTravelled == 0)
                 {
-                    sensorTwin.distanceTravelled = DistanceCalculator.CalculateDistance(sensor.CurrentLocation, _twinData.SectionTwin.StartLocation);
+                    sensorTwin.DistanceTravelled = DistanceCalculator.CalculateDistance(sensor.CurrentLocation, _twinData.SectionTwin.StartLocation);
                 }
                 else
                 {
-                    sensorTwin.distanceTravelled = distanceTravelled;
+                    sensorTwin.DistanceTravelled = distanceTravelled;
                 }
 
                 //sensorTwin.distanceTravelled = distanceTravelled;
             }
             else
             {
-                sensorTwin.distanceTravelled = 0;
+                sensorTwin.DistanceTravelled = 0;
             }
 
             sensorTwin.Speed = distanceTravelled / sensor.TimeElapsed;

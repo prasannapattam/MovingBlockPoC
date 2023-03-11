@@ -19,6 +19,7 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { MovingBlockComponent } from './home/moving-block.component';
+import { ADTComponent } from './home/adt.component';
 
 // framework
 import { ConfirmationDialogComponent } from './framework/confirmation-dialog.component';
@@ -38,8 +39,7 @@ import { SignalRService } from './signalr.service';
   declarations: [
     AppComponent,
     NavMenuComponent,
-    HomeComponent,
-    MovingBlockComponent,
+    HomeComponent, MovingBlockComponent, ADTComponent,
 
     ConfirmationDialogComponent,
 
@@ -58,6 +58,7 @@ import { SignalRService } from './signalr.service';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'live', component: LiveViewComponent },
       { path: 'moving-block', component: MovingBlockComponent },
+      { path: 'adt', component: ADTComponent }
     ]),
     BrowserAnimationsModule,
     MatCardModule, MatDialogModule, MatTooltipModule, MatInputModule, MatButtonModule,
